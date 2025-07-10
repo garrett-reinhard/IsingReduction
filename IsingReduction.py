@@ -52,7 +52,7 @@ def clusters(pca, model=sklearn.cluster.KMeans(n_clusters=2, random_state=42)):
 
 def objective(trial):
 
-    directory_path = '/home/user/IsingData/Data/betaJ-0010_vf-050_nrows-100_ncols-100'
+    directory_path = './Data/betaJ-0010_vf-050_nrows-100_ncols-100'
 
     n_components = trial.suggest_int("n_components", 2, 6)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
@@ -101,7 +101,7 @@ elif scaler_type == 'MaxAbsScaler':
 elif scaler_type == 'PowerTransformer':
     scaler_type = sklearn.preprocessing.PowerTransformer()
 
-directory_path = '/home/user/IsingData/Data/betaJ-0010_vf-050_nrows-100_ncols-100'
+directory_path = './Data/betaJ-0010_vf-050_nrows-100_ncols-100'
 
 principal_components = PCA_analysis(directory=directory_path, n_components=best_n_components, scaler=scaler_type)
 cluster_and_plot(pca=principal_components, fig_name='betaJ-0010_vf-050.png')
@@ -110,7 +110,7 @@ cluster_and_plot(pca=principal_components, fig_name='betaJ-0010_vf-050.png')
 
 def objective(trial):
 
-    directory_path = '/home/user/IsingData/Data/betaJ-0100_vf-050_nrows-100_ncols-100'
+    directory_path = './Data/betaJ-0100_vf-050_nrows-100_ncols-100'
 
     n_components = trial.suggest_int("n_components", 2, 6)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
@@ -159,7 +159,7 @@ elif scaler_type == 'MaxAbsScaler':
 elif scaler_type == 'PowerTransformer':
     scaler_type = sklearn.preprocessing.PowerTransformer()
 
-directory_path = '/home/user/IsingData/Data/betaJ-0100_vf-050_nrows-100_ncols-100'
+directory_path = './Data/betaJ-0100_vf-050_nrows-100_ncols-100'
 
 principal_components = PCA_analysis(directory=directory_path, n_components=best_n_components, scaler=scaler_type)
 cluster_and_plot(pca=principal_components, fig_name='betaJ-0100_vf-050.png')
@@ -168,7 +168,7 @@ cluster_and_plot(pca=principal_components, fig_name='betaJ-0100_vf-050.png')
 
 def objective(trial):
 
-    directory_path = '/home/user/IsingData/Data/betaJ-1000_vf-050_nrows-100_ncols-100'
+    directory_path = './Data/betaJ-1000_vf-050_nrows-100_ncols-100'
 
     n_components = trial.suggest_int("n_components", 2, 6)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
@@ -217,7 +217,7 @@ elif scaler_type == 'MaxAbsScaler':
 elif scaler_type == 'PowerTransformer':
     scaler_type = sklearn.preprocessing.PowerTransformer()
 
-directory_path = '/home/user/IsingData/Data/betaJ-1000_vf-050_nrows-100_ncols-100'
+directory_path = './Data/betaJ-1000_vf-050_nrows-100_ncols-100'
 
 principal_components = PCA_analysis(directory=directory_path, n_components=best_n_components, scaler=scaler_type)
 cluster_and_plot(pca=principal_components, fig_name='betaJ-1000_vf-050.png')
@@ -226,7 +226,7 @@ cluster_and_plot(pca=principal_components, fig_name='betaJ-1000_vf-050.png')
 
 def objective(trial):
 
-    directory_path = '/home/user/IsingData/Data/betaJ-0200_vf-025_nrows-100_ncols-100'
+    directory_path = './Data/betaJ-0200_vf-025_nrows-100_ncols-100'
 
     n_components = trial.suggest_int("n_components", 2, 6)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
@@ -275,7 +275,7 @@ elif scaler_type == 'MaxAbsScaler':
 elif scaler_type == 'PowerTransformer':
     scaler_type = sklearn.preprocessing.PowerTransformer()
 
-directory_path = '/home/user/IsingData/Data/betaJ-0200_vf-025_nrows-100_ncols-100'
+directory_path = './Data/betaJ-0200_vf-025_nrows-100_ncols-100'
 
 principal_components = PCA_analysis(directory=directory_path, n_components=best_n_components, scaler=scaler_type)
 cluster_and_plot(pca=principal_components, fig_name='betaJ-0200_vf-025.png')
@@ -284,7 +284,7 @@ cluster_and_plot(pca=principal_components, fig_name='betaJ-0200_vf-025.png')
 
 def objective(trial):
 
-    directory_path = '/home/user/IsingData/Data/betaJ-0200_vf-050_nrows-100_ncols-100'
+    directory_path = './Data/betaJ-0200_vf-050_nrows-100_ncols-100'
 
     n_components = trial.suggest_int("n_components", 2, 6)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
@@ -333,7 +333,7 @@ elif scaler_type == 'MaxAbsScaler':
 elif scaler_type == 'PowerTransformer':
     scaler_type = sklearn.preprocessing.PowerTransformer()
 
-directory_path = '/home/user/IsingData/Data/betaJ-0200_vf-050_nrows-100_ncols-100'
+directory_path = './Data/betaJ-0200_vf-050_nrows-100_ncols-100'
 
 principal_components = PCA_analysis(directory=directory_path, n_components=best_n_components, scaler=scaler_type)
 cluster_and_plot(pca=principal_components, fig_name='betaJ-0200_vf-050.png')
@@ -342,7 +342,7 @@ cluster_and_plot(pca=principal_components, fig_name='betaJ-0200_vf-050.png')
 
 def objective(trial):
 
-    directory_path = '/home/user/IsingData/Data/betaJ-0200_vf-080_nrows-100_ncols-100'
+    directory_path = './Data/betaJ-0200_vf-080_nrows-100_ncols-100'
 
     n_components = trial.suggest_int("n_components", 2, 6)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
@@ -391,7 +391,7 @@ elif scaler_type == 'MaxAbsScaler':
 elif scaler_type == 'PowerTransformer':
     scaler_type = sklearn.preprocessing.PowerTransformer()
 
-directory_path = '/home/user/IsingData/Data/betaJ-0200_vf-050_nrows-100_ncols-100'
+directory_path = './Data/betaJ-0200_vf-050_nrows-100_ncols-100'
 
 principal_components = PCA_analysis(directory=directory_path, n_components=best_n_components, scaler=scaler_type)
 cluster_and_plot(pca=principal_components, fig_name='betaJ-0200_vf-080.png')
