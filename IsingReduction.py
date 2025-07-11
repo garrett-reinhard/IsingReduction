@@ -79,7 +79,7 @@ study = optuna.create_study(direction='maximize', study_name='pca_kmeans_optimiz
 
 with open('betaJ-0010_vf-050.out', 'w') as f:
     print("Starting PCA and KMeans hyperparameter optimization")
-    study.optimize(objective, n_trials=3)
+    study.optimize(objective, n_trials=75)
     print("Optimization finished.")
     print("\nPCA and KMeans Optimization Results:", file=f)
     print(f"Number of finished trials: {len(study.trials)}", file=f)
@@ -137,7 +137,7 @@ study = optuna.create_study(direction='maximize', study_name='pca_kmeans_optimiz
 
 with open('betaJ-0100_vf-050.out', 'w') as f:
     print("Starting PCA and KMeans hyperparameter optimization")
-    study.optimize(objective, n_trials=3)
+    study.optimize(objective, n_trials=75)
     print("Optimization finished.")
     print("\nPCA and KMeans Optimization Results:", file=f)
     print(f"Number of finished trials: {len(study.trials)}", file=f)
@@ -195,7 +195,7 @@ study = optuna.create_study(direction='maximize', study_name='pca_kmeans_optimiz
 
 with open('betaJ-1000_vf-050.out', 'w') as f:
     print("Starting PCA and KMeans hyperparameter optimization")
-    study.optimize(objective, n_trials=3)
+    study.optimize(objective, n_trials=75)
     print("Optimization finished.")
     print("\nPCA and KMeans Optimization Results:", file=f)
     print(f"Number of finished trials: {len(study.trials)}", file=f)
@@ -253,7 +253,7 @@ study = optuna.create_study(direction='maximize', study_name='pca_kmeans_optimiz
 
 with open('betaJ-0200_vf-025.out', 'w') as f:
     print("Starting PCA and KMeans hyperparameter optimization")
-    study.optimize(objective, n_trials=3)
+    study.optimize(objective, n_trials=75)
     print("Optimization finished.")
     print("\nPCA and KMeans Optimization Results:", file=f)
     print(f"Number of finished trials: {len(study.trials)}", file=f)
@@ -311,7 +311,7 @@ study = optuna.create_study(direction='maximize', study_name='pca_kmeans_optimiz
 
 with open('betaJ-0200_vf-050.out', 'w') as f:
     print("Starting PCA and KMeans hyperparameter optimization")
-    study.optimize(objective, n_trials=3)
+    study.optimize(objective, n_trials=75)
     print("Optimization finished.")
     print("\nPCA and KMeans Optimization Results:", file=f)
     print(f"Number of finished trials: {len(study.trials)}", file=f)
@@ -369,7 +369,7 @@ study = optuna.create_study(direction='maximize', study_name='pca_kmeans_optimiz
 
 with open('betaJ-0200_vf-080.out', 'w') as f:
     print("Starting PCA and KMeans hyperparameter optimization")
-    study.optimize(objective, n_trials=3)
+    study.optimize(objective, n_trials=75)
     print("Optimization finished.")
     print("\nPCA and KMeans Optimization Results:", file=f)
     print(f"Number of finished trials: {len(study.trials)}", file=f)
