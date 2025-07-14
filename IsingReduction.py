@@ -94,7 +94,7 @@ def tSNE_analysis_all_data(directories, data_set_label, scaler, n_components, pe
  
     scaled = scaler.fit_transform(merged_df)
 
-    tsne = sklearn.manifold.TSNE(n_components, random_state=42, perplexity=perplexity, n_iter=n_iter)
+    tsne = sklearn.manifold.TSNE(n_components, random_state=42, perplexity=perplexity, max_iter=n_iter)
     tsne_x = tsne.fit_transform(scaled)
 
     return tsne_x, labels
@@ -155,6 +155,7 @@ def umap_plots(umap, n_components, fig_name, labels):
     
     return
 
+### Optuna Hyperparameter Optimization
 
 n_trials = 1
 
@@ -171,7 +172,7 @@ dataset_label = ['0010vf-050', '0100vf-050', '1000vf-050']
 
 def objective(trial):
 
-    n_components = trial.suggest_int("n_components", 2, 4)
+    n_components = trial.suggest_int("n_components", 2, 3)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
 
     if scaler_type ==  'StandardScaler':
@@ -194,8 +195,8 @@ def objective(trial):
 
 study = optuna.create_study(direction='maximize', study_name='pca_optimization')
     
-with open('betaJ-0010_vf-050.out', 'w') as f:
-    print("Starting PCA and KMeans hyperparameter optimization")
+with open('betaJ_change.txt', 'a') as f:
+    print("Starting PCA hyperparameter optimization for betaJ Change")
     study.optimize(objective, n_trials=n_trials)
     print("Optimization finished.")
     print("\nPCA and KMeans Optimization Results:", file=f)
@@ -231,7 +232,7 @@ dataset_label = ['0010vf-050', '0100vf-050', '1000vf-050']
 
 def objective(trial):
 
-    n_components = trial.suggest_int('n_components', 2, 4)
+    n_components = trial.suggest_int('n_components', 2, 3)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
     perplexity = trial.suggest_float('perplexity', 5, 50, step=0.5)
     n_iter = trial.suggest_int('n_iter', 250, 2000, step=50)
@@ -256,8 +257,8 @@ def objective(trial):
 
 study = optuna.create_study(direction='maximize', study_name='tsne_optimization')
     
-with open('betaJ-0010_vf-050.out', 'w') as f:
-    print("Starting TSNE hyperparameter optimization")
+with open('betaJ_change.txt', 'a') as f:
+    print("Starting TSNE hyperparameter optimization for betaJ change")
     study.optimize(objective, n_trials=n_trials)
     print("Optimization finished.")
     print("\nTSNE Optimization Results:", file=f)
@@ -269,7 +270,7 @@ with open('betaJ-0010_vf-050.out', 'w') as f:
 best_n_components = study.best_params['n_components']
 scaler_type = study.best_params['scaler_type']
 best_perplexity = study.best_params['perplexity']
-best_iter = study.best_params['n_iters']
+best_iter = study.best_params['n_iter']
 
 if scaler_type ==  'StandardScaler':
     scaler_type = sklearn.preprocessing.StandardScaler()
@@ -282,7 +283,7 @@ elif scaler_type == 'MaxAbsScaler':
 elif scaler_type == 'PowerTransformer':
     scaler_type = sklearn.preprocessing.PowerTransformer()
 
-tsne, labels = tSNE_analysis_all_data(directories=directory_list, data_set_label=dataset_label, n_components=best_n_components, scaler=scaler_type, perplexity=best_perplexity, n_iters=best_iter)
+tsne, labels = tSNE_analysis_all_data(directories=directory_list, data_set_label=dataset_label, n_components=best_n_components, scaler=scaler_type, perplexity=best_perplexity, n_iter=best_iter)
 tsne_plots(tsne=tsne, n_components=best_n_components, fig_name='betaJ_tsne.png', labels=labels)
 
 
@@ -292,7 +293,7 @@ dataset_label = ['0010vf-050', '0100vf-050', '1000vf-050']
 
 def objective(trial):
 
-    n_components = trial.suggest_int("n_components", 2, 4)
+    n_components = trial.suggest_int("n_components", 2, 3)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
     min_dist = trial.suggest_float('min_dist', 0.0, 1.0, step=0.5)
     n_neighbors = trial.suggest_int('n_neighbors', 10, 250, step=10)
@@ -309,17 +310,17 @@ def objective(trial):
     elif scaler_type == 'PowerTransformer':
         scaler_type = sklearn.preprocessing.PowerTransformer()
 
-    umap, labels = umap_analysis_all_data(directories=directory_list, data_set_label=dataset_label, scaler=scaler_type, n_neighbors=n_neighbors, min_dist=min_dist, n_components=n_components, metric=metric)
-    cluster_labels = clusters(pca=umap)
+    umap_x, labels = umap_analysis_all_data(directories=directory_list, data_set_label=dataset_label, scaler=scaler_type, n_neighbors=n_neighbors, min_dist=min_dist, n_components=n_components, metric=metric)
+    cluster_labels = clusters(pca=umap_x)
 
-    score = sklearn.metrics.silhouette_score(umap, cluster_labels)
+    score = sklearn.metrics.silhouette_score(umap_x, cluster_labels)
 
     return score
 
 study = optuna.create_study(direction='maximize', study_name='umap_optimization')
     
-with open('betaJ-0010_vf-050.out', 'w') as f:
-    print("Starting UMAP hyperparameter optimization")
+with open('betaJ_change.txt', 'a') as f:
+    print("Starting UMAP hyperparameter optimization for betaJ change")
     study.optimize(objective, n_trials=n_trials)
     print("Optimization finished.")
     print("\nUMAP Optimization Results:", file=f)
@@ -345,8 +346,8 @@ elif scaler_type == 'MaxAbsScaler':
 elif scaler_type == 'PowerTransformer':
     scaler_type = sklearn.preprocessing.PowerTransformer()
 
-umap, labels = umap_analysis_all_data(directories=directory_list, data_set_label=dataset_label, scaler=scaler_type, n_neighbors=best_n_neighbors, min_dist=best_min_dist, n_components=best_n_components, metric=best_metric)
-umap_plots(umap=umap, n_components=best_n_components, fig_name='umap_betaJ.png', labels=labels)
+umap_x, labels = umap_analysis_all_data(directories=directory_list, data_set_label=dataset_label, scaler=scaler_type, n_neighbors=best_n_neighbors, min_dist=best_min_dist, n_components=best_n_components, metric=best_metric)
+umap_plots(umap=umap_x, n_components=best_n_components, fig_name='umap_betaJ.png', labels=labels)
 
  
 ### Changing Volume Fraction
@@ -361,7 +362,7 @@ dataset_label = ['0200vf-025', '0200vf-050', '0200vf-080']
 
 def objective(trial):
 
-    n_components = trial.suggest_int("n_components", 2, 4)
+    n_components = trial.suggest_int("n_components", 2, 3)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
 
     if scaler_type ==  'StandardScaler':
@@ -384,8 +385,8 @@ def objective(trial):
 
 study = optuna.create_study(direction='maximize', study_name='pca_optimization')
     
-with open('betaJ-0010_vf-050.out', 'w') as f:
-    print("Starting PCA and KMeans hyperparameter optimization")
+with open('volume_change.txt', 'a') as f:
+    print("Starting PCA hyperparameter optimization for volume change")
     study.optimize(objective, n_trials=n_trials)
     print("Optimization finished.")
     print("\nPCA and KMeans Optimization Results:", file=f)
@@ -421,7 +422,7 @@ dataset_label = ['0200vf-025', '0200vf-050', '0200vf-080']
 
 def objective(trial):
 
-    n_components = trial.suggest_int('n_components', 2, 4)
+    n_components = trial.suggest_int('n_components', 2, 3)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
     perplexity = trial.suggest_float('perplexity', 5, 50, step=0.5)
     n_iter = trial.suggest_int('n_iter', 250, 2000, step=50)
@@ -446,8 +447,8 @@ def objective(trial):
 
 study = optuna.create_study(direction='maximize', study_name='tsne_optimization')
     
-with open('betaJ-0010_vf-050.out', 'w') as f:
-    print("Starting TSNE hyperparameter optimization")
+with open('volume_change.txt', 'a') as f:
+    print("Starting TSNE hyperparameter optimization for volume change")
     study.optimize(objective, n_trials=n_trials)
     print("Optimization finished.")
     print("\nTSNE Optimization Results:", file=f)
@@ -459,7 +460,7 @@ with open('betaJ-0010_vf-050.out', 'w') as f:
 best_n_components = study.best_params['n_components']
 scaler_type = study.best_params['scaler_type']
 best_perplexity = study.best_params['perplexity']
-best_iter = study.best_params['n_iters']
+best_iter = study.best_params['n_iter']
 
 if scaler_type ==  'StandardScaler':
     scaler_type = sklearn.preprocessing.StandardScaler()
@@ -472,7 +473,7 @@ elif scaler_type == 'MaxAbsScaler':
 elif scaler_type == 'PowerTransformer':
     scaler_type = sklearn.preprocessing.PowerTransformer()
 
-tsne, labels = tSNE_analysis_all_data(directories=directory_list, data_set_label=dataset_label, n_components=best_n_components, scaler=scaler_type, perplexity=best_perplexity, n_iters=best_iter)
+tsne, labels = tSNE_analysis_all_data(directories=directory_list, data_set_label=dataset_label, n_components=best_n_components, scaler=scaler_type, perplexity=best_perplexity, n_iter=best_iter)
 tsne_plots(tsne=tsne, n_components=best_n_components, fig_name='volume_tsne.png', labels=labels)
 
  
@@ -485,7 +486,7 @@ dataset_label = ['0200vf-025', '0200vf-050', '0200vf-080']
 
 def objective(trial):
 
-    n_components = trial.suggest_int("n_components", 2, 4)
+    n_components = trial.suggest_int("n_components", 2, 3)
     scaler_type = trial.suggest_categorical('scaler_type', ['StandardScaler', 'MinMaxScaler', 'RobustScaler', 'MaxAbsScaler', 'PowerTransformer'])
     min_dist = trial.suggest_float('min_dist', 0.0, 1.0, step=0.5)
     n_neighbors = trial.suggest_int('n_neighbors', 10, 250, step=10)
@@ -502,17 +503,17 @@ def objective(trial):
     elif scaler_type == 'PowerTransformer':
         scaler_type = sklearn.preprocessing.PowerTransformer()
 
-    umap, labels = umap_analysis_all_data(directories=directory_list, data_set_label=dataset_label, scaler=scaler_type, n_neighbors=n_neighbors, min_dist=min_dist, n_components=n_components, metric=metric)
-    cluster_labels = clusters(pca=umap)
+    umap_x, labels = umap_analysis_all_data(directories=directory_list, data_set_label=dataset_label, scaler=scaler_type, n_neighbors=n_neighbors, min_dist=min_dist, n_components=n_components, metric=metric)
+    cluster_labels = clusters(pca=umap_x)
 
-    score = sklearn.metrics.silhouette_score(umap, cluster_labels)
+    score = sklearn.metrics.silhouette_score(umap_x, cluster_labels)
 
     return score
 
 study = optuna.create_study(direction='maximize', study_name='umap_optimization')
     
-with open('betaJ-0010_vf-050.out', 'w') as f:
-    print("Starting UMAP hyperparameter optimization")
+with open('volume_change.txt', 'a') as f:
+    print("Starting UMAP hyperparameter optimization for volume change")
     study.optimize(objective, n_trials=n_trials)
     print("Optimization finished.")
     print("\nUMAP Optimization Results:", file=f)
@@ -538,5 +539,5 @@ elif scaler_type == 'MaxAbsScaler':
 elif scaler_type == 'PowerTransformer':
     scaler_type = sklearn.preprocessing.PowerTransformer()
 
-umap, labels = umap_analysis_all_data(directories=directory_list, data_set_label=dataset_label, scaler=scaler_type, n_neighbors=best_n_neighbors, min_dist=best_min_dist, n_components=best_n_components, metric=best_metric)
-umap_plots(umap=umap, n_components=best_n_components, fig_name='umap_volume.png', labels=labels)
+umap_x, labels = umap_analysis_all_data(directories=directory_list, data_set_label=dataset_label, scaler=scaler_type, n_neighbors=best_n_neighbors, min_dist=best_min_dist, n_components=best_n_components, metric=best_metric)
+umap_plots(umap=umap_x, n_components=best_n_components, fig_name='umap_volume.png', labels=labels)

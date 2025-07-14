@@ -1,6 +1,0 @@
-
-PCA and KMeans Optimization Results:
-Number of finished trials: 75
-Best trial:
-  Value (Silhouette Score): 0.7755
-  Params: {'n_components': 2, 'scaler_type': 'StandardScaler'}
