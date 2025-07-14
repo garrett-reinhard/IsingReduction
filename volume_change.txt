@@ -1,0 +1,18 @@
+
+PCA and KMeans Optimization Results:
+Number of finished trials: 1
+Best trial:
+  Value (Silhouette Score): 0.7409
+  Params: {'n_components': 2, 'scaler_type': 'PowerTransformer'}
+
+TSNE Optimization Results:
+Number of finished trials: 1
+Best trial:
+  Value (Silhouette Score): 0.2280
+  Params: {'n_components': 3, 'scaler_type': 'MinMaxScaler', 'perplexity': 9.5, 'n_iter': 900}
+
+UMAP Optimization Results:
+Number of finished trials: 1
+Best trial:
+  Value (Silhouette Score): 0.4207
+  Params: {'n_components': 2, 'scaler_type': 'StandardScaler', 'min_dist': 1.0, 'n_neighbors': 210, 'metric': 'euclidean'}
