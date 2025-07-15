@@ -10,3 +10,9 @@ Number of finished trials: 125
 Best trial:
   Value (Silhouette Score): 0.3601
   Params: {'n_components': 2, 'scaler_type': 'RobustScaler', 'perplexity': 45.0, 'n_iter': 1950}
+
+UMAP Optimization Results:
+Number of finished trials: 125
+Best trial:
+  Value (Silhouette Score): 0.9749
+  Params: {'n_components': 2, 'scaler_type': 'RobustScaler', 'min_dist': 0.5, 'n_neighbors': 180, 'metric': 'chebyshev'}
