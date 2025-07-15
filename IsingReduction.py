@@ -157,7 +157,7 @@ def umap_plots(umap, n_components, fig_name, labels):
 
 ### Optuna Hyperparameter Optimization
 
-n_trials = 1
+n_trials = 125
 
  
 ### Changing betaJ
