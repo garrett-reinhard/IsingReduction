@@ -1,18 +1,18 @@
 
 PCA and KMeans Optimization Results:
-Number of finished trials: 1
+Number of finished trials: 125
 Best trial:
   Value (Silhouette Score): 0.6819
   Params: {'n_components': 2, 'scaler_type': 'MinMaxScaler'}
 
 TSNE Optimization Results:
-Number of finished trials: 1
+Number of finished trials: 125
 Best trial:
-  Value (Silhouette Score): 0.3382
-  Params: {'n_components': 2, 'scaler_type': 'MaxAbsScaler', 'perplexity': 18.0, 'n_iter': 1750}
+  Value (Silhouette Score): 0.3448
+  Params: {'n_components': 2, 'scaler_type': 'StandardScaler', 'perplexity': 6.0, 'n_iter': 2000}
 
 UMAP Optimization Results:
-Number of finished trials: 1
+Number of finished trials: 125
 Best trial:
-  Value (Silhouette Score): 0.4341
-  Params: {'n_components': 3, 'scaler_type': 'StandardScaler', 'min_dist': 0.0, 'n_neighbors': 170, 'metric': 'manhattan'}
+  Value (Silhouette Score): 0.9857
+  Params: {'n_components': 3, 'scaler_type': 'RobustScaler', 'min_dist': 0.0, 'n_neighbors': 230, 'metric': 'chebyshev'}
